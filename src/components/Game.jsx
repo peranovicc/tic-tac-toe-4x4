@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { easyComputer, hardComputer } from '../utility/computerPlayer'
+import { AI } from '../utility/computerPlayer'
 import { isGameOver, isValidMove } from '../utility/gameCheck'
 import { PLAYER1,COMPUTER } from '../utility/constants'
 
@@ -24,7 +24,7 @@ const Game = ({ difficulty }) => {
     const [values, setValues] = useState(['','','','','','','','','','','','','','','',''])
     const [turn,setTurn] = useState(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
     const [finished,setFinished] = useState(false)
-
+    
     const move = useCallback((field,player) => {
         if(!isValidMove(field,values) || finished) return 
         if(player !== turn) return
@@ -39,9 +39,9 @@ const Game = ({ difficulty }) => {
 
     const computerMove = useCallback((values) => {
         setTimeout(() => {
-            move(hardComputer(values),COMPUTER)
+            move(AI(difficulty,values),COMPUTER)
         },Math.random()*1000) // Computer waits 0-1s before making a move  
-    },[move])
+    },[move,difficulty])
    
     const resetField = () => {
         if(finished || window.confirm('Да ли сте сигурни да желите да поништите игру?')){

@@ -1,14 +1,20 @@
 import { COMPUTER, PLAYER1, scores } from './constants'
-import { checkWinner, isGameOver } from './gameCheck'
+import { checkWinner, isGameOver, wins } from './gameCheck'
 
-export const easyComputer = (values) => {
+const movesPlayed = (values) => values.filter(value => value !== '').length
+
+const easyComputer = (values) => {
     const validMoves = []
     values.forEach((value,i) => value === '' && validMoves.push(i))
     return validMoves[Math.floor(Math.random()*validMoves.length)]
 }
 
-export const hardComputer = (values) => {
-    if(values.filter(value => value !== '').length < 3){
+const mediumComputer = (values) => {
+    return movesPlayed(values) < 5 ? easyComputer(values) : hardComputer(values)
+}
+
+const hardComputer = (values) => {
+    if(movesPlayed(values) < 3){
         let fields = [5,6,9,10]
         return fields.find(field => values[field] === '')
     }
@@ -30,12 +36,13 @@ export const hardComputer = (values) => {
 }
 
 
-
 function minimax(values,depth,isMaximising,alpha,beta){
     if(isGameOver(values)){
         return scores[checkWinner(values)]
     }
-
+    if(movesPlayed(values) === 12 && depth > 4){
+        return evaluate(values)
+    }
     if(isMaximising){
         let bestScore = -Infinity
         values.some((value,i,arr) => {
@@ -67,6 +74,43 @@ function minimax(values,depth,isMaximising,alpha,beta){
             return false
         })
         return bestScore+depth
+    }
+}
+
+function evaluate(values){
+    let resultComputer = {
+        3: 0,
+        2: 0,
+        1: 0
+    }
+    let resultPlayer = {
+        3: 0,
+        2: 0,
+        1: 0
+    }
+    wins.forEach(win => {
+        let winValues = win.map(field => values[field])
+        let [cCount,pCount] = [0,0]
+
+        winValues.forEach(value => {
+            if(value === COMPUTER) cCount++
+            if(value === PLAYER1) pCount++
+        })
+        if(pCount === 0)
+            resultComputer[cCount]++
+        if(cCount === 0)
+            resultPlayer[pCount]++
+    })
+
+    return 4*(resultComputer[3] - resultPlayer[3]) + 2*(resultComputer[2] - resultPlayer[2]) + (resultComputer[1] - resultPlayer[1])
+}
+
+export const AI = (difficulty,values) => {
+    switch(difficulty){
+        case 0: return easyComputer(values)
+        case 1: return mediumComputer(values)
+        case 2: return hardComputer(values)
+        default: return 0
     }
 }
 
