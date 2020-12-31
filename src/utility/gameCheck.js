@@ -1,4 +1,6 @@
-const wins = [
+import { TIE } from "./constants"
+
+export const wins = [
     [0,1,2,3],
     [4,5,6,7],
     [8,9,10,11],
@@ -20,17 +22,19 @@ const wins = [
     [9,10,13,14]
 ]
 
-export const isGameOver = (values) => {
+const gameOverWinner = (values) => {
     for(let win of wins){
         if(win.every(field => values[win[0]] === values[field] && values[win[0]] !== '')){
-            console.log('WIN',values[win[0]])
-            return true
+            return [true,values[win[0]]]
         }
     }
     if(values.every(value => value !== '')) {
-        console.log('Нерешено')
-        return true
+        return [true,TIE]
     }
+    return [false]
 }
+
+export const isGameOver = (values) => gameOverWinner(values)[0]
+export const checkWinner = (values) => gameOverWinner(values)[1]
 
 export const isValidMove = (field,values) => values[field] === ''

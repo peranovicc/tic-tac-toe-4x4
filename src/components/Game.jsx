@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { easyComputer } from '../utility/computerPlayer'
+import { easyComputer, hardComputer } from '../utility/computerPlayer'
 import { isGameOver, isValidMove } from '../utility/gameCheck'
 import { PLAYER1,COMPUTER } from '../utility/constants'
 
@@ -21,7 +21,7 @@ const Field = ({ value,text,move }) => {
 
 const Game = ({ difficulty }) => {
     const fields = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-    const [values, setValues] = useState((new Array(16)).fill(''))
+    const [values, setValues] = useState(['','','','','','','','','','','','','','','',''])
     const [turn,setTurn] = useState(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
     const [finished,setFinished] = useState(false)
 
@@ -39,23 +39,24 @@ const Game = ({ difficulty }) => {
 
     const computerMove = useCallback((values) => {
         setTimeout(() => {
-            move(easyComputer(values),COMPUTER)
+            move(hardComputer(values),COMPUTER)
         },Math.random()*1000) // Computer waits 0-1s before making a move  
     },[move])
    
     const resetField = () => {
         if(finished || window.confirm('Да ли сте сигурни да желите да поништите игру?')){
             setFinished(false)
-            setTurn(Math.random() > 0.5 ? 'X' : 'O')
+            setTurn(Math.random() > 0.5 ? COMPUTER : PLAYER1)
             setValues((new Array(16)).fill(''))
         }
     }
     
     useEffect(() => {
         if(isGameOver(values)){
+            console.log('GAME OVER')
             setFinished(true)
         }
-        else turn === COMPUTER && computerMove(values)
+        else turn === COMPUTER && computerMove(values,COMPUTER)
     },[values,turn,computerMove])
 
     
