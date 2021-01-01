@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledSettings = styled.div` 
-    transition: all 0.5s ease-in-out;
+    transition: all 1.1s ease-in-out;
   
     position: fixed;
     min-height: 90vh;
@@ -12,6 +12,7 @@ export const StyledSettings = styled.div`
         transition: all 0.5s ease-in-out;
         transform: translateY(100%);
     }
+
     * {
         text-align: center;
     }
@@ -19,29 +20,18 @@ export const StyledSettings = styled.div`
         margin-bottom: 2rem;
         text-shadow: 0.5px 0.5px black;
     }
-    
-    button{
-        display: block;
-        height: 3rem;
-        width: 60%;
-        color: #393e46;
-        background-color: #ffd369;
-        border: 1px solid #222831;
-        margin: 1rem auto;
-        cursor: pointer;
-
-        &:hover{
-            background-color: #fcc546;
-        }
-        &:active{
-            background-color: #f6b214;
-        }
+    .btn-container{
+        display: flex;
+        width: 70%;
+        text-align: center;
+        align-items: center;
+        flex-direction: column;
+        margin: auto;
         @media (min-width: 767px) { 
-            display: inline-block;
-            padding: 1rem 2rem;
-            width: 11rem;
-            margin: 1rem;
-            margin-bottom: 5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
         }
     }
     h3{
@@ -75,6 +65,9 @@ export const StyledSettings = styled.div`
         &:hover{
             background-color: grey;
         }
+    }
+    button{
+        margin: 5px;
     }
 `
 

@@ -4,34 +4,17 @@ export const StyledGame = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    text-align: center;
-    @keyframes shine {
-        0% {
-            background-position: right;    
+    text-align: center;  
+    #btn-container{
+        display: flex;
+        flex-direction: column;
+        margin:auto;
+        width: 30vw;
+        button{
+            width: 100%;
+            margin-top: 1rem;
         }
-    }
-    button{
-        height: 3rem;
-        color: #393e46;
-        background-color:#ffd369;
-        background-image: linear-gradient(
-            to right,
-            transparent 33%,
-            #fdebbb,
-            transparent 66%
-        );
-        background-size:300% 100%;
-        border: 1px solid #222831;
-        margin: 1rem 25% 0.1rem 25%;
-        cursor: pointer;
-        &:hover{
-            animation: shine 2s;
-        }
-        @media (min-width: 767px) { 
-            margin: 1rem 35% 0.1rem 35%;
-        }
-    }
-    
+    } 
 `
 
 export const StyledFields = styled.div`

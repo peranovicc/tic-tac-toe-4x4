@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { EASY, EASY_DESCRIPTION, HARD, HARD_DESCRIPTION, MEDIUM, MEDIUM_DESCRIPTION } from '../../utility/constants'
+import { Button } from '../Common/StyledButton'
 import { StyledSettings } from './StyledSettings'
 
 const Settings = ({ setDifficulty,visible,setVisible }) => {
@@ -13,29 +14,30 @@ const Settings = ({ setDifficulty,visible,setVisible }) => {
 
     return (
         <StyledSettings isVisible={visible} className={visible || 'closed'}>
+            <h1>4x4 Икс-Окс</h1>
             <h2>Изабрати тежину</h2>
             <div className="btn-container">
-                <button value={EASY}
+                <Button value={EASY}
                     onClick={(e) => difficultySetter(e.target.value)}
                     onMouseEnter={() => setDescription(EASY_DESCRIPTION)}
                     onMouseLeave={() => setDescription(null)}
                 >
                     Лако
-                </button>
-                <button value={MEDIUM}
+                </Button>
+                <Button value={MEDIUM}
                     onClick={(e) => difficultySetter(e.target.value)}
                     onMouseEnter={() => setDescription(MEDIUM_DESCRIPTION)}
                     onMouseLeave={() => setDescription(null)}
                 >
                     Средње
-                </button>
-                <button value={HARD}
+                </Button>
+                <Button value={HARD}
                     onClick={(e) => difficultySetter(e.target.value)}
                     onMouseEnter={() => setDescription(HARD_DESCRIPTION)}
                     onMouseLeave={() => setDescription(null)}
                 >
                     Тешко
-                </button>
+                </Button>
             </div>
             <h3>Опис тежине: (пређите мишем преко тежине)</h3>
             <p>{description}</p>
