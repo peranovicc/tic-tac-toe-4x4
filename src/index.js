@@ -5,13 +5,20 @@ import Settings from './components/Settings/Settings'
 import './index.css'
 
 const App = () => {
-    const [difficulty,setDifficulty] = useState(0) // 0,1,2 - Easy,Medium,Hard
-
+    const [difficulty,setDifficulty] = useState(null) // 0,1,2 - Easy,Medium,Hard
+    const [visibleSettings,setVisibleSettings] = useState(true)
 
     return (
         <>
-            <Settings setDifficulty={setDifficulty} />
-            <Game difficulty={difficulty} />
+            <Settings 
+                setDifficulty={setDifficulty} 
+                visible={visibleSettings} 
+                setVisible={setVisibleSettings} 
+            />
+            <Game 
+                difficulty={difficulty} 
+                setVisibleSettings={setVisibleSettings}
+            />
         </>
     )
 }

@@ -1,32 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { AI } from '../../utility/computerPlayer'
-import { isGameOver, isValidMove } from '../../utility/gameCheck'
+import { checkWinner, isGameOver, isValidMove } from '../../utility/gameCheck'
 import { PLAYER1,COMPUTER } from '../../utility/constants'
-import { StyledField, StyledFields, StyledGame } from './StyledGame'
-
-const Field = ({ value,text,move }) => {
-    switch(text){
-        case PLAYER1: text = 'P'; break;
-        case COMPUTER: text = 'C'; break;
-        default: text = ''; break;
-    }
-
-    return (
-        <StyledField onClick={() => move(value,PLAYER1)} className="field">
-            {text}
-        </StyledField>
-    )
-}
+import { StyledFields, StyledGame } from './StyledGame'
+import { Field } from './Field'
 
 
 
-const Game = ({ difficulty }) => {
+
+
+const Game = ({ difficulty,setVisibleSettings }) => {
     const fields = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-    const [values, setValues] = useState(['','','','','','','','','','','','','','','',''])
+    const [values, setValues] = useState((new Array(16)).fill(''))
     const [turn,setTurn] = useState(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
     const [finished,setFinished] = useState(false)
+    const [score,setScore] = useState([0,0])
+
+    useEffect(() => {
+        setTurn(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
+    },[difficulty])
     
-    const move = useCallback((field,player) => {
+    const move = useCallback((field,player,values) => {
         if(!isValidMove(field,values) || finished) return 
         if(player !== turn) return
         let next = turn === PLAYER1 ? COMPUTER : PLAYER1
@@ -36,23 +30,28 @@ const Game = ({ difficulty }) => {
             tmp.splice(field,1,turn)
             return tmp
         })
-    },[turn,values,finished])
+    },[turn,finished])
 
-    const computerMove = useCallback((values) => {
-        move(AI(difficulty,values),COMPUTER)  
+    const computerMove = useCallback((values) => { 
+        setTimeout(() => {
+            difficulty && move(AI(difficulty,values),COMPUTER,values) 
+        },300) // Computer starts to calculate after 0.3s
     },[move,difficulty])
    
     const resetField = () => {
-        if(finished || window.confirm('Да ли сте сигурни да желите да поништите игру?')){
+        if(finished || window.confirm('Да ли сте сигурни да желите да прекинете тренутну игру?')){
             setFinished(false)
-            setTurn(Math.random() > 0.5 ? COMPUTER : PLAYER1)
             setValues((new Array(16)).fill(''))
+            return true
         }
+        return false
     }
     
     useEffect(() => {
         if(isGameOver(values)){
-            console.log('GAME OVER')
+            let winner = checkWinner(values)
+            if(winner === COMPUTER) setScore(score => [score[PLAYER1],score[COMPUTER] + 0.5]) 
+            if(winner === PLAYER1) setScore(score => [score[PLAYER1] + 0.5,score[COMPUTER]]) 
             setFinished(true)
         }
         else turn === COMPUTER && computerMove(values,COMPUTER)
@@ -63,19 +62,24 @@ const Game = ({ difficulty }) => {
 
     return (
         <StyledGame>
-            <p>Turn: {turn}</p>
-            <StyledFields>
-            {
-                fields.map((field, i) =>
-                    <Field
-                        key={field}
-                        value={field}
-                        text={values[i]}
-                        move={move}
-                    />
-            )}
-            </StyledFields>
+            <div>
+                <p>Играч {score[PLAYER1]} || {score[COMPUTER]} Рачунар</p>
+                <p>{!finished ? `На потезу: ${turn === PLAYER1 ? 'Играч' : 'Рачунар'}` : <br />}</p>
+                <StyledFields>
+                {
+                    fields.map((field, i) =>
+                        <Field
+                            key={field}
+                            value={field}
+                            text={values[i]}
+                            move={move}
+                            values={values}
+                        />
+                )}
+                </StyledFields>
+            </div>
             <button onClick={resetField}>Почни поново</button>
+            <button onClick={() => {resetField() && setVisibleSettings(true)}}>Промени тежину</button>
         </StyledGame>
     )
 }

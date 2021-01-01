@@ -1,4 +1,4 @@
-import { COMPUTER, PLAYER1, scores } from './constants'
+import { COMPUTER, EASY, HARD, MEDIUM, PLAYER1, scores } from './constants'
 import { checkWinner, isGameOver, wins } from './gameCheck'
 
 const movesPlayed = (values) => values.filter(value => value !== '').length
@@ -25,7 +25,6 @@ const hardComputer = (values) => {
             let tmp = [...arr]
             tmp[i] = COMPUTER
             let score = minimax(tmp,0,false,-Infinity,Infinity)
-            console.log(score)
             if(score > bestScore){
                 bestScore = score
                 bestMove = i
@@ -107,10 +106,10 @@ function evaluate(values){
 
 export const AI = (difficulty,values) => {
     switch(difficulty){
-        case 0: return easyComputer(values)
-        case 1: return mediumComputer(values)
-        case 2: return hardComputer(values)
-        default: return 0
+        case EASY: return easyComputer(values)
+        case MEDIUM: return mediumComputer(values)
+        case HARD: return hardComputer(values)
+        default: return hardComputer(values)
     }
 }
 
