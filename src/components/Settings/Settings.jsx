@@ -38,31 +38,16 @@ const Settings = ({ setDifficulty,visible,setVisible }) => {
                     Тешко
                 </Button>
             </div>
-            <h3>Опис тежине: (пређите мишем преко тежине)</h3>
+            <h3>Опис тежине: (мишем преко дугмића изнад)</h3>
             <p>{description}</p>
             <h4>Правила и упутства</h4>
-            <li>Спојити 4 знака на неки од следећих начина:</li>
-            <div>
-            <div className="shape">
-                •<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;•<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•
-                </div>
-                <div className="shape">•&nbsp;•&nbsp;•&nbsp;•</div>
-                <div className="shape">•<br/>•<br/>•<br/>•</div>
-                <div className="shape">
-                    •&nbsp;•<br/>•&nbsp;•
-                </div>
-                <div className="shape">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    •
-                    <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    •
-                    <br />
-                    &nbsp;&nbsp; &nbsp;&nbsp;•<br />•
-                </div>
+            <q>Спојити 4 знака на неки од следећих начина</q>
+            <div id="wins">
+                <img src="/windiag.png" alt="Дијагонална победа"/>
+                <img src="/winhorizontal.png" alt="Хоризонтална победа"/>
+                <br/>
+                <img src="/winsquare.png" alt="Квадратна победа"/>
+                <img src="/winvertical.png" alt="Вертикална победа"/>
             </div>
         </StyledSettings>
     )

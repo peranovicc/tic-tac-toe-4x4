@@ -1,7 +1,7 @@
 import { COMPUTER, EASY, HARD, MEDIUM, PLAYER1, scores } from './constants'
 import { checkWinner, isGameOver, wins } from './gameCheck'
 
-const movesPlayed = (values) => values.filter(value => value !== '').length
+export const movesPlayed = (values) => values.filter(value => value !== '').length
 
 const easyComputer = (values) => {
     const validMoves = []

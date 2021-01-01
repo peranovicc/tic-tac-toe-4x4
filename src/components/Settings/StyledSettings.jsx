@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 
-export const StyledSettings = styled.div` 
+export const StyledSettings = styled.div`
+
+    z-index: 1;
     transition: all 1.1s ease-in-out;
   
     position: fixed;
-    min-height: 90vh;
-    padding-top: 10vh;
+    min-height: 98vh;
+    padding-top: 2vh;
     width: 100vw;
+    text-align: center;
     background-color: rgba(100,100,100,0.95);
+    @media (min-height: 700px) and (min-width: 400px){
+        min-height: 92vh;
+        padding-top: 8vh;
+    }
     &.closed{
         transition: all 0.5s ease-in-out;
         transform: translateY(100%);
@@ -17,7 +24,7 @@ export const StyledSettings = styled.div`
         text-align: center;
     }
     h2{
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         text-shadow: 0.5px 0.5px black;
     }
     .btn-container{
@@ -56,18 +63,39 @@ export const StyledSettings = styled.div`
         text-align: left;
     }
     h4{
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        @media (min-height: 700px){
+            margin-bottom: 1rem;
+        }
     }
     .shape{
         margin: 1px auto;
         width: 150px;
-        border-bottom: 1px solid grey;
+        border-bottom: 2px solid #3d3c3a;
         &:hover{
             background-color: grey;
         }
     }
     button{
-        margin: 5px;
+        margin: 1px;
     }
+ 
+    img{
+        height: 150px;
+        margin: 3px;
+        @media (min-height: 700px) and (min-width: 400px){
+            height: 170px;
+        }
+        @media (min-height: 800px) and (min-width: 450px){
+            height: 200px;
+        }
+        @media (max-height: 570px){
+            height: 100px
+        }
+        @media (max-width: 300px){
+            height: 100px;
+        }
+    }
+ 
 `
 

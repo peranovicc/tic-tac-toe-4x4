@@ -18,6 +18,7 @@ const App = () => {
             <Game 
                 difficulty={difficulty} 
                 setVisibleSettings={setVisibleSettings}
+                setDifficulty={setDifficulty} 
             />
         </>
     )

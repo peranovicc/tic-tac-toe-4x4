@@ -20,13 +20,20 @@ export const Button = styled.button`
         transparent 66%
     );
     background-size:300% 100%;
-    border: 1px solid #222831;
+    border: 1px solid #2a323d;
     cursor: pointer;
     &:hover{
         animation: shine 2s;
     }
+    box-shadow:3px 3px #0a0c0f;
+    &:active{
+        box-shadow: none;
+    }
     @media (min-width: 767px) { 
         padding: 1rem 1rem;
         width: 30%;
+    }
+    @media (max-width: 300px){
+        width: 70%;
     }
 `

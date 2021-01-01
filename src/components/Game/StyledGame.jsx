@@ -2,17 +2,21 @@ import styled from 'styled-components';
 
 export const StyledGame = styled.div`
     display: flex;
+    padding-top: 48px;
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;  
     #btn-container{
         display: flex;
         flex-direction: column;
-        margin:auto;
+        margin:5vh auto;
         width: 30vw;
         button{
             width: 100%;
             margin-top: 1rem;
+        }
+        @media (max-width: 300px){
+            width: 70%;
         }
     } 
 `
@@ -41,20 +45,27 @@ export const StyledField = styled.div`
     background-color:#ffd369;
     text-align: center;
     color: #222831;
+    max-height: 100%;
     padding: 0;
-
+    cursor: pointer;
     text-align: center;
     transition: transform 0.8s;
+    font-size: 2rem;
     &.player{
+        cursor: not-allowed;
         transform: rotateY(180deg);
         &::after{
             content:'X'
         }
+        background-color:#a9f5a9;
     }
     &.ai{
+        cursor: not-allowed;
         transform: rotateY(180deg);
         &::after{
             content:'O'
         }
+        background-color:#fb8383;
+
     }
 `
