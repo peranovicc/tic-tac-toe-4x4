@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Game from './components/Game'
-import Settings from './components/Settings'
+import Game from './components/Game/Game'
+import Settings from './components/Settings/Settings'
 import './index.css'
 
 const App = () => {

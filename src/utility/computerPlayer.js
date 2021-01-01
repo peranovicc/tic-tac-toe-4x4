@@ -40,7 +40,7 @@ function minimax(values,depth,isMaximising,alpha,beta){
     if(isGameOver(values)){
         return scores[checkWinner(values)]
     }
-    if(movesPlayed(values) === 12 && depth > 4){
+    if(movesPlayed(values) === 15 || depth === 6){
         return evaluate(values)
     }
     if(isMaximising){

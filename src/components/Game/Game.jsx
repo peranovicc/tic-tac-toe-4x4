@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { AI } from '../utility/computerPlayer'
-import { isGameOver, isValidMove } from '../utility/gameCheck'
-import { PLAYER1,COMPUTER } from '../utility/constants'
+import { AI } from '../../utility/computerPlayer'
+import { isGameOver, isValidMove } from '../../utility/gameCheck'
+import { PLAYER1,COMPUTER } from '../../utility/constants'
+import { StyledField, StyledFields, StyledGame } from './StyledGame'
 
 const Field = ({ value,text,move }) => {
     switch(text){
@@ -11,9 +12,9 @@ const Field = ({ value,text,move }) => {
     }
 
     return (
-        <div onClick={() => move(value,PLAYER1)} className="field">
+        <StyledField onClick={() => move(value,PLAYER1)} className="field">
             {text}
-        </div>
+        </StyledField>
     )
 }
 
@@ -38,9 +39,7 @@ const Game = ({ difficulty }) => {
     },[turn,values,finished])
 
     const computerMove = useCallback((values) => {
-        setTimeout(() => {
-            move(AI(difficulty,values),COMPUTER)
-        },Math.random()*1000) // Computer waits 0-1s before making a move  
+        move(AI(difficulty,values),COMPUTER)  
     },[move,difficulty])
    
     const resetField = () => {
@@ -63,9 +62,9 @@ const Game = ({ difficulty }) => {
         
 
     return (
-        <div id="game">
+        <StyledGame>
             <p>Turn: {turn}</p>
-            <div id="fields">
+            <StyledFields>
             {
                 fields.map((field, i) =>
                     <Field
@@ -75,9 +74,9 @@ const Game = ({ difficulty }) => {
                         move={move}
                     />
             )}
-            </div>
+            </StyledFields>
             <button onClick={resetField}>Почни поново</button>
-        </div>
+        </StyledGame>
     )
 }
 
