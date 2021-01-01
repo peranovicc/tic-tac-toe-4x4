@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import { EASY, EASY_DESCRIPTION, HARD, HARD_DESCRIPTION, MEDIUM, MEDIUM_DESCRIPTION } from '../../utility/constants'
 import { Button } from '../Common/StyledButton'
 import { StyledSettings } from './StyledSettings'
+import windiag from './winImages/windiag.png'
+import winhorizontal from './winImages/winhorizontal.png'
+import winsquare from './winImages/winsquare.png'
+import winvertical from './winImages/winvertical.png'
 
 const Settings = ({ setDifficulty,visible,setVisible }) => {
     const [description, setDescription] = useState(null)
@@ -43,11 +47,11 @@ const Settings = ({ setDifficulty,visible,setVisible }) => {
             <h4>Правила и упутства</h4>
             <q>Спојити 4 знака на неки од следећих начина</q>
             <div id="wins">
-                <img src="/windiag.png" alt="Дијагонална победа"/>
-                <img src="/winhorizontal.png" alt="Хоризонтална победа"/>
+                <img src={windiag} alt="Дијагонална победа"/>
+                <img src={winhorizontal} alt="Хоризонтална победа"/>
                 <br/>
-                <img src="/winsquare.png" alt="Квадратна победа"/>
-                <img src="/winvertical.png" alt="Вертикална победа"/>
+                <img src={winsquare} alt="Квадратна победа"/>
+                <img src={winvertical} alt="Вертикална победа"/>
             </div>
         </StyledSettings>
     )
