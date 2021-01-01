@@ -11,7 +11,6 @@ const Settings = ({ setDifficulty,visible,setVisible }) => {
         setVisible(false)
     }
 
-
     return (
         <StyledSettings isVisible={visible} className={visible || 'closed'}>
             <h1>4x4 Икс-Окс</h1>
@@ -64,10 +63,7 @@ const Settings = ({ setDifficulty,visible,setVisible }) => {
                     <br />
                     &nbsp;&nbsp; &nbsp;&nbsp;•<br />•
                 </div>
-                
             </div>
-            
-
         </StyledSettings>
     )
 }
