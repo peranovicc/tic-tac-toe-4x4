@@ -101,7 +101,7 @@ function evaluate(values){
             resultPlayer[pCount]++
     })
 
-    return 4*(resultComputer[3] - resultPlayer[3]) + 2*(resultComputer[2] - resultPlayer[2]) + (resultComputer[1] - resultPlayer[1])
+    return 7*(resultComputer[3] - resultPlayer[3]) + 2*(resultComputer[2] - resultPlayer[2]) + (resultComputer[1] - resultPlayer[1])
 }
 
 export const AI = (difficulty,values) => {

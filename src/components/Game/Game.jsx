@@ -75,18 +75,20 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
                 <p>Тежина игре: {difficultyText}</p>
                 <p>Играч {score[PLAYER1]} : {score[COMPUTER]} Рачунар</p>
                 <p>{!finished ? `На потезу: ${turn === PLAYER1 ? 'Играч' : 'Рачунар'}` : <br />}</p>
-                <StyledFields>
-                {
-                    fields.map((field, i) =>
-                        <Field
-                            key={field}
-                            value={field}
-                            text={values[i]}
-                            move={move}
-                            values={values}
-                        />
-                )}
-                </StyledFields>
+                <div id="game-container">
+                    <StyledFields>
+                    {
+                        fields.map((field, i) =>
+                            <Field
+                                key={field}
+                                value={field}
+                                text={values[i]}
+                                move={move}
+                                values={values}
+                            />
+                    )}
+                    </StyledFields>
+                </div>
             </div>
             <div id="btn-container">
                 <Button onClick={() => {

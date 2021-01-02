@@ -19,6 +19,13 @@ export const StyledGame = styled.div`
             width: 70%;
         }
     } 
+
+    #game-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
 `
 
 export const StyledFields = styled.div`
@@ -27,9 +34,8 @@ export const StyledFields = styled.div`
     grid-template-rows: repeat(4,1fr);
     column-gap: 3px;
     row-gap: 3px;
-    height: 60vw;
-    width: 60vw;
-    margin: auto;
+    height: 55vw;
+    width: 55vw;
     padding: 5px;
 
     @media (min-width: 767px) { 
