@@ -25,7 +25,7 @@ export const wins = [
 const gameOverWinner = (values) => {
     for(let win of wins){
         if(win.every(field => values[win[0]] === values[field] && values[win[0]] !== '')){
-            return [true,values[win[0]]]
+            return [true,values[win[0]],win]
         }
     }
     if(values.every(value => value !== '')) {
@@ -36,5 +36,6 @@ const gameOverWinner = (values) => {
 
 export const isGameOver = (values) => gameOverWinner(values)[0]
 export const checkWinner = (values) => gameOverWinner(values)[1]
+export const winFields = (values) => gameOverWinner(values)[2]
 
 export const isValidMove = (field,values) => values[field] === ''

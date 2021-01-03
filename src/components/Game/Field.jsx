@@ -2,7 +2,7 @@ import React from 'react'
 import { COMPUTER, PLAYER1 } from '../../utility/constants';
 import { StyledField } from './StyledGame';
 
-export const Field = ({ value,text,move,values }) => {
+export const Field = ({ value,text,move,values,win }) => {
     let style
     switch(text){
         case PLAYER1: style = 'player'; break;
@@ -11,6 +11,6 @@ export const Field = ({ value,text,move,values }) => {
     }
 
     return (
-        <StyledField onClick={() => move(value,PLAYER1,values)} className={`field ${style}`} />
+        <StyledField onClick={() => move(value,PLAYER1,values)} className={`field ${style} ${win ? 'win' : ''}`} />
     )
 }

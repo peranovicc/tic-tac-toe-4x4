@@ -64,6 +64,9 @@ export const StyledField = styled.div`
             content:'X'
         }
         background-color:#a9f5a9;
+        &.win{
+            background-color: #40da40;
+        }
     }
     &.ai{
         cursor: not-allowed;
@@ -72,6 +75,9 @@ export const StyledField = styled.div`
             content:'O'
         }
         background-color:#fb8383;
-
+        &.win{
+            background-color: #fd4747;
+        }
     }
+
 `

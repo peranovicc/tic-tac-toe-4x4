@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { AI } from '../../utility/computerPlayer'
-import { checkWinner, isGameOver, isValidMove } from '../../utility/gameCheck'
+import { checkWinner, isGameOver, isValidMove, winFields } from '../../utility/gameCheck'
 import { PLAYER1,COMPUTER } from '../../utility/constants'
 import { StyledFields, StyledGame } from './StyledGame'
 import { Field } from './Field'
@@ -11,9 +11,11 @@ import { useConfirm } from '../Confirm/ConfirmHook'
 const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
     const fields = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     const [values, setValues] = useState((new Array(16)).fill(''))
+    const [winValues,setWinValues] = useState([])
     const [turn,setTurn] = useState(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
     const [finished,setFinished] = useState(false)
     const [score,setScore] = useState([0,0])
+
 
     const [open,setOpen,confirm,setConfirm] = useConfirm(false,()=>{},()=>{})
     const [prompt,setPrompt] = useState('')
@@ -39,6 +41,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
     const resetField = () => {
         setFinished(false)
         setValues((new Array(16)).fill(''))
+        setWinValues([])
         setTurn(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
     }
     const changeDifficulty = () => {
@@ -56,6 +59,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
             let winner = checkWinner(values)
             if(winner === COMPUTER) setScore(score => [score[PLAYER1],score[COMPUTER] + 0.5]) 
             if(winner === PLAYER1) setScore(score => [score[PLAYER1] + 0.5,score[COMPUTER]]) 
+            setWinValues(winFields(values))
             setFinished(true)
         }
         else turn === COMPUTER && computerMove(values,COMPUTER)
@@ -85,6 +89,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
                                 text={values[i]}
                                 move={move}
                                 values={values}
+                                win={winValues.includes(field)}
                             />
                     )}
                     </StyledFields>
