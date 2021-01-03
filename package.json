@@ -1,6 +1,7 @@
 {
   "homepage":"http://peranovicc.github.io/tic-tac-toe-4x4",
   "name": "iks-oks",
+  "author": "peranovicc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
