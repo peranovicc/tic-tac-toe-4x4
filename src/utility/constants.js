@@ -1,5 +1,5 @@
 export const PLAYER1 = 0
-export const COMPUTER = 1
+export const PLAYER2 = 1
 export const TIE = 2
 
 export const EASY = 1

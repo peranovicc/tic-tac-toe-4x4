@@ -1,4 +1,4 @@
-import { COMPUTER, EASY, HARD, MEDIUM, PLAYER1, scores } from './constants'
+import { PLAYER2, EASY, HARD, MEDIUM, PLAYER1, scores } from './constants'
 import { checkWinner, isGameOver, wins } from './gameCheck'
 
 export const movesPlayed = (values) => values.filter(value => value !== '').length
@@ -23,7 +23,7 @@ const hardComputer = (values) => {
     values.forEach((value,i,arr) => {
         if(value === '') {
             let tmp = [...arr]
-            tmp[i] = COMPUTER
+            tmp[i] = PLAYER2
             let score = minimax(tmp,0,false,-Infinity,Infinity)
             if(score > bestScore){
                 bestScore = score
@@ -47,7 +47,7 @@ function minimax(values,depth,isMaximising,alpha,beta){
         values.some((value,i,arr) => {
             if(value === '') {
                 let tmp = [...arr]
-                tmp[i] = COMPUTER
+                tmp[i] = PLAYER2
                 let score = minimax(tmp,depth + 1,false,alpha,beta)    
                 bestScore = Math.max(score,bestScore)
                 alpha = Math.max(alpha,bestScore)
@@ -92,7 +92,7 @@ function evaluate(values){
         let [cCount,pCount] = [0,0]
 
         winValues.forEach(value => {
-            if(value === COMPUTER) cCount++
+            if(value === PLAYER2) cCount++
             if(value === PLAYER1) pCount++
         })
         if(pCount === 0)

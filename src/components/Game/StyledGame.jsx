@@ -18,6 +18,12 @@ export const StyledGame = styled.div`
         @media (max-width: 300px){
             width: 70%;
         }
+        @media (max-width: 400px){
+            width: 50%;
+        }
+        @media (max-width: 450px){
+            width: 45%;
+        }
     } 
 
     #game-container{
@@ -25,6 +31,16 @@ export const StyledGame = styled.div`
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+    }
+    #score{
+        display: flex;
+        height: 5vh;
+        justify-content: space-evenly;
+        margin-top: 5px;
+        font-size: 1.5rem;
+    }
+    .span-name{
+        border-bottom: 1px solid #f6a53a;
     }
 `
 

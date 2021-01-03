@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const StyledSettings = styled.div`
-
     z-index: 1;
     transition: all 1.1s ease-in-out;
   
     position: fixed;
     min-height: 98vh;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
     padding-top: 2vh;
     width: 100vw;
     text-align: center;
@@ -34,12 +35,23 @@ export const StyledSettings = styled.div`
         align-items: center;
         flex-direction: column;
         margin: auto;
+        
         @media (min-width: 767px) { 
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            button{
+                width: 25%;
+                margin-bottom: 1rem;
+            }
+            br{
+                width: 100%;
+                content: '';
+            }
         }
+        
     }
     h3{
         display: none;

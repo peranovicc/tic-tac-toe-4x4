@@ -41,7 +41,16 @@ const Settings = ({ setDifficulty,visible,setVisible }) => {
                 >
                     Тешко
                 </Button>
+                <br />
+                <Button value={undefined}
+                    onClick={(e) => difficultySetter(e.target.value)}
+                    onMouseEnter={() => setDescription('ДВА ИГРАЧА')}
+                    onMouseLeave={() => setDescription(null)}
+                >
+                    2 Играча
+                </Button>
             </div>
+            
             <h3>Опис тежине: (мишем преко дугмића изнад)</h3>
             <p>{description}</p>
             <h4>Правила и упутства</h4>

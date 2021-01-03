@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { AI } from '../../utility/computerPlayer'
 import { checkWinner, isGameOver, isValidMove, winFields } from '../../utility/gameCheck'
-import { PLAYER1,COMPUTER } from '../../utility/constants'
+import { PLAYER1,PLAYER2 } from '../../utility/constants'
 import { StyledFields, StyledGame } from './StyledGame'
 import { Field } from './Field'
 import { Button } from '../Common/StyledButton'
@@ -12,29 +12,28 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
     const fields = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     const [values, setValues] = useState((new Array(16)).fill(''))
     const [winValues,setWinValues] = useState([])
-    const [turn,setTurn] = useState(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
+    const [turn,setTurn] = useState(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
     const [finished,setFinished] = useState(false)
     const [score,setScore] = useState([0,0])
-
 
     const [open,setOpen,confirm,setConfirm] = useConfirm(false,()=>{},()=>{})
     const [prompt,setPrompt] = useState('')
 
     const move = useCallback((field,player,values) => {
         if(!isValidMove(field,values) || finished) return 
-        if(player !== turn) return
-        let next = turn === PLAYER1 ? COMPUTER : PLAYER1
+        if(player !== turn && difficulty) return
+        let next = turn === PLAYER1 ? PLAYER2 : PLAYER1
         setTurn(next)
         setValues(values => {
             let tmp = [...values]
             tmp.splice(field,1,turn)
             return tmp
         })
-    },[turn,finished])
+    },[turn,finished,difficulty])
 
     const computerMove = useCallback((values) => { 
         setTimeout(() => {
-            difficulty && move(AI(difficulty,values),COMPUTER,values) 
+            difficulty && move(AI(difficulty,values),PLAYER2,values) 
         },300) // Computer starts to calculate after 0.3s
     },[move,difficulty])
 
@@ -42,7 +41,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
         setFinished(false)
         setValues((new Array(16)).fill(''))
         setWinValues([])
-        setTurn(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
+        setTurn(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
     }
     const changeDifficulty = () => {
         resetField()
@@ -51,19 +50,19 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
         setScore([0,0])
     }
     useEffect(() => {
-        setTurn(Math.random() > 0.5 ? PLAYER1 : COMPUTER)
+           difficulty && setTurn(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
     },[difficulty])
     
     useEffect(() => {
         if(isGameOver(values)){
             let winner = checkWinner(values)
-            if(winner === COMPUTER) setScore(score => [score[PLAYER1],score[COMPUTER] + 0.5]) 
-            if(winner === PLAYER1) setScore(score => [score[PLAYER1] + 0.5,score[COMPUTER]]) 
+            if(winner === PLAYER2) setScore(score => [score[PLAYER1],score[PLAYER2] + 0.5]) 
+            if(winner === PLAYER1) setScore(score => [score[PLAYER1] + 0.5,score[PLAYER2]]) 
             setWinValues(winFields(values))
             setFinished(true)
         }
-        else turn === COMPUTER && computerMove(values,COMPUTER)
-    },[values,turn,computerMove])
+        else if(difficulty) turn === PLAYER2 && computerMove(values,PLAYER2)
+    },[values,turn,computerMove,difficulty])
 
     let difficultyText
     switch(difficulty){
@@ -76,9 +75,8 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
     return (
         <StyledGame>
             <div>
-                <p>Тежина игре: {difficultyText}</p>
-                <p>Играч {score[PLAYER1]} : {score[COMPUTER]} Рачунар</p>
-                <p>{!finished ? `На потезу: ${turn === PLAYER1 ? 'Играч' : 'Рачунар'}` : <br />}</p>
+                <p>{!finished ? `На потезу: ${turn === PLAYER1 ? 'Играч 1' : (difficulty ? 'Рачунар' : 'Играч 2')}` : <br />}</p>
+                <p id="score"><span className="span-name">Играч 1</span> {score[PLAYER1]} : {score[PLAYER2]} <span className="span-name">{difficulty ? 'Рачунар' : 'Играч 2'}</span></p>
                 <div id="game-container">
                     <StyledFields>
                     {
@@ -93,6 +91,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
                             />
                     )}
                     </StyledFields>
+                    {difficulty ? <p>Тежина игре: {difficultyText}</p> : null}
                 </div>
             </div>
             <div id="btn-container">
@@ -109,9 +108,9 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
                 <Button onClick={() => {
                     setOpen(true)
                     setConfirm(() => changeDifficulty)
-                    setPrompt('Рестарт и мењање тежине?')
+                    setPrompt('Рестарт и мењање подешавања?')
                 }}>
-                    Промени тежину
+                    Подешавања ⚙
                 </Button>
             </div>
             <Confirm
