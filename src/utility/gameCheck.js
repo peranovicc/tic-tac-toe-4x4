@@ -29,9 +29,9 @@ const gameOverWinner = (values) => {
         }
     }
     if(values.every(value => value !== '')) {
-        return [true,TIE]
+        return [true,TIE,[]]
     }
-    return [false]
+    return [false,false,[]]
 }
 
 export const isGameOver = (values) => gameOverWinner(values)[0]

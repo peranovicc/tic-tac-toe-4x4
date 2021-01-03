@@ -89,7 +89,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
                                 text={values[i]}
                                 move={move}
                                 values={values}
-                                win={winValues ? winValues.includes(field) : undefined}
+                                win={winValues.includes(field)}
                             />
                     )}
                     </StyledFields>
