@@ -50,7 +50,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
         setScore([0,0])
     }
     useEffect(() => {
-           difficulty && setTurn(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
+        setTurn(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
     },[difficulty])
     
     useEffect(() => {
@@ -69,7 +69,7 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
         case 1: difficultyText = 'Лако';break;
         case 2: difficultyText = 'Средње';break;
         case 3: difficultyText = 'Тешко';break;
-        default: difficultyText = 'Изаберите тежину';break;
+        default: break;
     }
 
     return (
