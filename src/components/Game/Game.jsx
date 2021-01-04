@@ -43,12 +43,14 @@ const Game = ({ difficulty,setVisibleSettings,setDifficulty }) => {
         setWinValues([])
         setTurn(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
     }
+    
     const changeDifficulty = () => {
         resetField()
         setVisibleSettings(true) 
         setDifficulty(null) 
         setScore([0,0])
     }
+
     useEffect(() => {
         setTurn(Math.random() > 0.5 ? PLAYER1 : PLAYER2)
     },[difficulty])

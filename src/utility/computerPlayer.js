@@ -3,29 +3,29 @@ import { checkWinner, isGameOver, wins } from './gameCheck'
 
 export const movesPlayed = (values) => values.filter(value => value !== '').length
 
-const easyComputer = (values) => {
+function easyComputer(values) {
     const validMoves = []
-    values.forEach((value,i) => value === '' && validMoves.push(i))
-    return validMoves[Math.floor(Math.random()*validMoves.length)]
+    values.forEach((value, i) => value === '' && validMoves.push(i))
+    return validMoves[Math.floor(Math.random() * validMoves.length)]
 }
 
-const mediumComputer = (values) => {
+function mediumComputer(values) {
     return movesPlayed(values) < 5 ? easyComputer(values) : hardComputer(values)
 }
 
-const hardComputer = (values) => {
-    if(movesPlayed(values) < 3){
-        let fields = [5,6,9,10]
+function hardComputer(values) {
+    if (movesPlayed(values) < 3) {
+        let fields = [5, 6, 9, 10]
         return fields.find(field => values[field] === '')
     }
     let bestScore = -Infinity
     let bestMove = values.indexOf('')
-    values.forEach((value,i,arr) => {
-        if(value === '') {
+    values.forEach((value, i, arr) => {
+        if (value === '') {
             let tmp = [...arr]
             tmp[i] = PLAYER2
-            let score = minimax(tmp,0,false,-Infinity,Infinity)
-            if(score > bestScore){
+            let score = minimax(tmp, 0, false, -Infinity, Infinity)
+            if (score > bestScore) {
                 bestScore = score
                 bestMove = i
             }
@@ -35,48 +35,48 @@ const hardComputer = (values) => {
 }
 
 
-function minimax(values,depth,isMaximising,alpha,beta){
-    if(isGameOver(values)){
+function minimax(values, depth, isMaximising, alpha, beta) {
+    if (isGameOver(values)) {
         return scores[checkWinner(values)]
     }
-    if(movesPlayed(values) === 14 || depth === 6){
+    if (movesPlayed(values) === 14 || depth === 6) {
         return evaluate(values)
     }
-    if(isMaximising){
+    if (isMaximising) {
         let bestScore = -Infinity
-        values.some((value,i,arr) => {
-            if(value === '') {
+        values.some((value, i, arr) => {
+            if (value === '') {
                 let tmp = [...arr]
                 tmp[i] = PLAYER2
-                let score = minimax(tmp,depth + 1,false,alpha,beta)    
-                bestScore = Math.max(score,bestScore)
-                alpha = Math.max(alpha,bestScore)
-                if(beta <= alpha)
+                let score = minimax(tmp, depth + 1, false, alpha, beta)
+                bestScore = Math.max(score, bestScore)
+                alpha = Math.max(alpha, bestScore)
+                if (beta <= alpha)
                     return true
             }
             return false
         })
-        return bestScore-depth
+        return bestScore - depth
     }
-    else{
+    else {
         let bestScore = Infinity
-        values.some((value,i,arr) => {
-            if(value === '') {
+        values.some((value, i, arr) => {
+            if (value === '') {
                 let tmp = [...arr]
                 tmp[i] = PLAYER1
-                let score = minimax(tmp,depth + 1,true,alpha,beta)    
-                bestScore = Math.min(score,bestScore)
-                beta = Math.min(beta,bestScore)
-                if(beta <= alpha)
+                let score = minimax(tmp, depth + 1, true, alpha, beta)
+                bestScore = Math.min(score, bestScore)
+                beta = Math.min(beta, bestScore)
+                if (beta <= alpha)
                     return true
             }
             return false
         })
-        return bestScore+depth
+        return bestScore + depth
     }
 }
 
-function evaluate(values){
+function evaluate(values) {
     let resultComputer = {
         3: 0,
         2: 0,
@@ -89,23 +89,23 @@ function evaluate(values){
     }
     wins.forEach(win => {
         let winValues = win.map(field => values[field])
-        let [cCount,pCount] = [0,0]
+        let [cCount, pCount] = [0, 0]
 
         winValues.forEach(value => {
-            if(value === PLAYER2) cCount++
-            if(value === PLAYER1) pCount++
+            if (value === PLAYER2) cCount++
+            if (value === PLAYER1) pCount++
         })
-        if(pCount === 0)
+        if (pCount === 0)
             resultComputer[cCount]++
-        if(cCount === 0)
+        if (cCount === 0)
             resultPlayer[pCount]++
     })
 
-    return 7*(resultComputer[3] - resultPlayer[3]) + 2*(resultComputer[2] - resultPlayer[2]) + (resultComputer[1] - resultPlayer[1])
+    return 7 * (resultComputer[3] - resultPlayer[3]) + 2 * (resultComputer[2] - resultPlayer[2]) + (resultComputer[1] - resultPlayer[1])
 }
 
-export const AI = (difficulty,values) => {
-    switch(difficulty){
+export const AI = (difficulty, values) => {
+    switch (difficulty) {
         case EASY: return easyComputer(values)
         case MEDIUM: return mediumComputer(values)
         case HARD: return hardComputer(values)
